@@ -1,38 +1,55 @@
 ---
 type: lesson
-title: Welcome to TutorialKit
-focus: /counter.js
+title: Your first Signal
+focus: /src/app/app.component.ts
 ---
 
-# Welcome to TutorialKit
+# Welcome to Angular Signals
 
-Hey there, and welcome to TutorialKit 👋!
+Welcome to this course!
 
-To kick things off, we have prepared a small demo lesson for you, where we'll dive into the concept of event handling in JavaScript. Our task is to resuscitate a lifeless counter app by introducing the crucial element of interactivity: **event listeners**.
+Angular Signals are a new way to manage reactive data flows in our Angular applications.
 
-Let's look at the preview on the right for a moment and try to click on the button that says `counter is 0`. We'll notice that it doesn't work.
+In this lesson, let's create our first Signal and see how to change its value.
 
-In the code for `counter.js`, which you can find on the right, we have a `setupCounter` function responsible for initializing our counter app. However, a crucial component is missing: an event listener for the button.
+First, we need to import the `signal` function and use it to create our first signal:
 
-Event listeners are essential in web development as they enable our applications to respond to user actions. In this case, we need to listen for clicks on the button to increment the counter.
+```ts add={1,10}
+import { Component, signal } from '@angular/core';
 
-To address this, we'll call the `addEventListener` to attach a `click` event listener to the button element. When a click is detected, we'll execute a callback function that increments the counter and updates the `innerHTML` accordingly.
-
-```ts add={9}
-export function setupCounter(element) {
-  let counter = 0;
-
-  const setCounter = (count) => {
-    counter = count;
-    element.innerHTML = `count is ${counter}`;
-  };
-
-  element.addEventListener('click', () => setCounter(counter + 1));
-
-  setCounter(0);
+@Component({
+    selector: 'app-root',
+    template: `
+     <h1>Hello user</h1>
+    `
+})
+export class AppComponent {    
+    name = signal();
 }
 ```
 
-This gives you a sneak peak of the TutorialKit experience, demonstrating what it's capable of.
+We can initialize a Signal with a default value as follows:
 
-Happy writing!
+```ts add={1}
+ name = signal("World");
+```
+
+To read the value of a Signal, we need to call it as a function. Here is how to read the value of `name` in our template:
+
+```ts add={6}
+import { Component, signal } from '@angular/core';
+
+@Component({
+    selector: 'app-root',
+    template: `
+     <h1>Hello {{name()}}</h1>
+    `
+})
+export class AppComponent {    
+    name = signal("World");
+}
+```
+
+In short, a Signal is a container for a value. We can set a default value and display that value as illustrated above.
+
+In our next section, let's see how to update a Signal.

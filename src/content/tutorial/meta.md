@@ -1,6 +1,6 @@
 ---
 type: tutorial
-mainCommand: ['npm run dev', 'Starting http server']
+mainCommand: ['npm start', 'Starting compiler and server']
 prepareCommands:
   - ['npm install', 'Installing dependencies']
 ---
